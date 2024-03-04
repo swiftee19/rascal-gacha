@@ -16,8 +16,9 @@ type Rascal = typeof Rascal.tsType;
 const rascals = StableBTreeMap<text, Rascal>(0);
 
 export default Canister({
-    makeRascal: update([text], Rascal, (rascalName) => {
-        const newStrategy: Rascal = {
+    // Creates a new Rascal with random health, attack, and speed values
+    makeRascal: update([text], Result(Rascal, text), (rascalName) => {
+        const newRascal: Rascal = {
             id: uuidv4(),
             name: rascalName,
             health: BigInt(Math.floor(Math.random() * (151 - 100)) + 100),
@@ -25,19 +26,24 @@ export default Canister({
             speed: BigInt(Math.floor(Math.random() * (11 - 5)) + 5)
         }
 
-        rascals.insert(newStrategy.id, newStrategy);
+        rascals.insert(newRascal.id, newRascal);
 
-        return newStrategy;
+        return Ok(newRascal);
     }),
 
-    getAllRacals: query([], Vec(Rascal), () => {
+    // Retrieves all Rascals
+    getAllRascals: query([], Vec(Rascal), () => {
         return rascals.values();
     }),
 
-    getRandomRascal: update([], Rascal, async  () => {
+    // Retrieves a random Rascal
+    getRandomRascal: update([], Result(Rascal, text), async  () => {
         const rascalArray: Rascal[] = [...rascals.values()];
+        if (rascalArray.length === 0) {
+            return Err("No rascals available");
+        }
         const rng = await ic.call(managementCanister.raw_rand);
         const randomIndex = Math.floor(rng[0] % rascalArray.length);
-        return rascalArray[randomIndex];
+        return Ok(rascalArray[randomIndex]);
     }),
-})
+});
