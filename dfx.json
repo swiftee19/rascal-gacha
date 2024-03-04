@@ -1,0 +1,31 @@
+{
+  "canisters": {
+    "hello_backend": {
+      "build": "npx azle hello_backend",
+      "candid": "src/index.did",
+      "candid_gen": "custom",
+      "gzip": true,
+      "main": "src/index.ts",
+      "type": "custom",
+      "wasm": ".azle/hello_backend/hello_backend.wasm",
+      "metadata": [
+        {
+          "name": "candid:service",
+          "path": "src/index.did"
+        },
+        {
+          "name": "cdk:name",
+          "content": "azle"
+        }
+      ]
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

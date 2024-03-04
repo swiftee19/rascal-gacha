@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "azle": "^0.20.1",
+    "seedrandom": "^3.0.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@dfinity/agent": "^0.19.3",
+    "@types/seedrandom": "^3.0.8",
+    "ts-node": "10.7.0",
+    "typescript": "4.6.3"
+  }
+}

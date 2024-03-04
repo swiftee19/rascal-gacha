@@ -1,0 +1,13 @@
+type Rascal = record {
+    id : text;
+    name : text;
+    health : nat;
+    attack : nat;
+    speed : nat;
+};
+
+service : () -> {
+    makeRascal : (rascalName : text) -> (Rascal);
+    getAllRacals: () -> (vec Rascal) query;
+    getRandomRascal : () -> (Rascal)
+};
